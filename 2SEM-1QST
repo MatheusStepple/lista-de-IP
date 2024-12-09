@@ -1,0 +1,57 @@
+resp = input()
+boneco, bicicleta, videogame, total, outros= 0
+
+while resp == "FIM":
+    resp = input()
+
+while resp != "FIM":
+    if resp == "Boneco":
+        print("Mais um presente saindo!")
+        boneco += 1
+    elif resp == "Videogame":
+        print("Mais um presente saindo!")
+        videogame += 1
+    elif resp == "Bicicleta":
+        print("Mais um presente saindo!")
+        bicicleta += 1
+    elif resp != "Bicicleta" and resp != "Videogame" and resp != "Boneco" and resp != "FIM":
+        print("Esse presente não está sendo fabricado nesse momento")
+        outros += 1
+
+total = outros + bicicleta + videogame + boneco
+
+
+print("Vamos agora ao relatório dos presentes!\n")
+
+porcentagemboneco = (boneco / total) * 100
+porcentagemvideogame = (videogame / total) * 100
+porcentagembicicleta = (bicicleta / total) * 100
+porcentagemoutros = (outros / total) * 100
+
+
+
+print(f"Boneco - {boneco} unidades - {porcentagemboneco:.2f}%")
+print(f"Videogame - {videogame} unidades - {porcentagemvideogame:.2f}%")
+print(f"Bicicleta - {bicicleta} unidades - {porcentagembicicleta:.2f}%")
+print(f"Outros - {outros} unidades - {porcentagemoutros:.2f}%") 
+
+if not outros:
+    print("A demanda está muito alta! Teremos que fazer mais uma fábrica!")
+elif porcentagemoutros > 50:
+    print("A fábrica está cumprindo seu papel, porém não precisa ser expandida")
+elif porcentagembicicleta < 50 and porcentagemboneco < 50 and porcentagemvideogame < 50 and porcentagemoutros < 50:
+    print("A fábrica está cumprindo seu papel, porém não precisa ser expandida") 
+elif porcentagembicicleta > 50 or porcentagemboneco > 50 or porcentagemvideogame > 50:
+    if porcentagemvideogame > porcentagemboneco and porcentagemvideogame > porcentagembicicleta:
+        print(f"Videogame está sendo muito desejado! A fábrica terá que ser expandida!")
+    
+    
+    print("{presente} está sendo muito desejado! A fábrica terá que ser expandida!")
+
+
+
+
+
+
+
+
