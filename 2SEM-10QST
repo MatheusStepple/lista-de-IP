@@ -1,0 +1,122 @@
+print("Bem-vindo à missão dos duendes! Vamos construir o trenó mágico do Papai Noel!")
+print("Quantos materiais mágicos estão trancados nos baús?")
+print("Vamos começar desbloqueando os materiais!")
+
+qtd_palavras = int(input())
+
+materiais_desbloqueados = 0
+
+for i in range(qtd_palavras):
+    print(f"Material {i + 1} de {qtd_palavras}")
+    senha = "Senha mágica: "
+    palavra = input().strip().upper()
+    tamanho = len(palavra)
+
+    for letra in palavra:
+        if letra != " ":
+            senha += "_"
+        else:
+            senha += " "
+
+    print(senha)
+
+    if tamanho <= 5:
+        tentativas = 7
+    elif tamanho <= 10:
+        tentativas = 9
+    elif tamanho <= 13:
+        tentativas = 13
+    else:
+        tentativas = 16
+
+    letras_descobertas = ['_'] * len(palavra)
+    letras_tentadas = ""
+
+    while tentativas > 0 and '_' in letras_descobertas:
+        letra = input().strip().upper()
+
+        if letra in palavra:
+            if letra in letras_tentadas:
+                tentativas -= 1
+                if not tentativas:
+                    print("Infelizmente não conseguimos descobrir a senha.")
+                    break
+                else:
+                    continue
+
+            quantidade = palavra.count(letra)
+
+            if quantidade > 1:
+                print(f"Acertamos uma letra! Ela aparece um total de {quantidade} vezes na senha")
+            elif quantidade == 1:
+                print(f"Acertamos uma letra! Ela aparece um total de 1 vez na senha")
+
+            for idx, char in enumerate(palavra):
+                if char == letra:
+                    letras_descobertas[idx] = letra
+
+            tentativas -= 1
+        else:
+            tentativas -= 1
+            if tentativas > 0:
+                print("Erramos a letra! Porém ainda temos mais tentativas.")
+            else:
+                print("Infelizmente não conseguimos descobrir a senha.")
+                break
+
+        letras_tentadas += letra
+
+    if '_' not in letras_descobertas:
+        print(f"Parabéns! Você desbloqueou o material mágico '{palavra}'!")
+        materiais_desbloqueados += 1
+    else:
+        print(f"Você não conseguiu desbloquear o material. O nome correto era '{palavra}'.")
+
+print(f"Você desbloqueou {materiais_desbloqueados} de {qtd_palavras} materiais mágicos!")
+
+print("Os duendes precisam decifrar os códigos perdidos para montar o trenó!")
+
+print("Quantas partes o trenó possui?")
+qtd_partes = int(input().strip())
+
+partes_montadas = 0
+
+for i in range(qtd_partes):
+    print(f"Parte {i + 1} de {qtd_partes}")
+    tentativas_restantes = 2
+
+    entrada = input().strip()
+    sequencia = list(map(int, entrada.split()))
+
+    menor = min(sequencia)
+    maior = max(sequencia)
+    codigo = menor + maior
+
+    print(f"Dica: O menor número é {menor} e o maior número é {maior}.")
+    print(f"Descubra o número mágico (soma de {menor} e {maior})")
+
+    while tentativas_restantes > 0:
+        chute = int(input().strip())
+
+        if chute == codigo:
+            print(f"Você decifrou o código da parte {i + 1}! O trenó está mais próximo de ficar completo!")
+            partes_montadas += 1
+            break
+        else:
+            tentativas_restantes -= 1
+            if tentativas_restantes > 0:
+                print("Número incorreto! Tente novamente.")
+                print(f"Descubra o número mágico (soma de {menor} e {maior})")
+
+    if tentativas_restantes == 0:
+        print("Número incorreto! Tente novamente.")
+        print(f"Você não conseguiu decifrar o código. O número mágico era {codigo}.")
+
+print(f"Você montou {partes_montadas} de {qtd_partes} partes do trenó!")
+
+if partes_montadas == qtd_partes:
+    print("Parabéns! O trenó está completo e pronto para voar!")
+elif partes_montadas >= (qtd_partes // 2):
+    print("Bom trabalho! O trenó quase ficou completo!")
+else:
+    print("Parece que o trenó ficou incompleto. Tente novamente na próxima missão!")
